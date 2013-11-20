@@ -210,7 +210,7 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
         params['L_PAYMENTREQUEST_0_NAME%d' % index] = name
         params['L_PAYMENTREQUEST_0_DESC%d' % index] = truncatewords(name, 12)
         params['L_PAYMENTREQUEST_0_AMT%d' % index] = _format_currency(
-            -discount['discount'])
+ -discount['discount'])
         params['L_PAYMENTREQUEST_0_QTY%d' % index] = 1
     for discount in basket.voucher_discounts:
         index += 1
@@ -219,7 +219,7 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
         params['L_PAYMENTREQUEST_0_NAME%d' % index] = name
         params['L_PAYMENTREQUEST_0_DESC%d' % index] = truncatewords(name, 12)
         params['L_PAYMENTREQUEST_0_AMT%d' % index] = _format_currency(
-            -discount['discount'])
+ -discount['discount'])
         params['L_PAYMENTREQUEST_0_QTY%d' % index] = 1
     for discount in basket.shipping_discounts:
         index += 1
@@ -227,7 +227,7 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
         params['L_PAYMENTREQUEST_0_NAME%d' % index] = name
         params['L_PAYMENTREQUEST_0_DESC%d' % index] = truncatewords(name, 12)
         params['L_PAYMENTREQUEST_0_AMT%d' % index] = _format_currency(
-            -discount['discount'])
+ -discount['discount'])
         params['L_PAYMENTREQUEST_0_QTY%d' % index] = 1
 
     # We include tax in the prices rather than separately as that's how it's
@@ -273,7 +273,7 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
         # It's recommend not to set 'confirmed shipping' if supplying the
         # shipping address directly.
         params['REQCONFIRMSHIPPING'] = 0
-        params['SHIPTONAME'] = shipping_address.name()
+        params['SHIPTONAME'] = shipping_address.name
         params['SHIPTOSTREET'] = shipping_address.line1
         params['SHIPTOSTREET2'] = shipping_address.line2
         params['SHIPTOCITY'] = shipping_address.line4
@@ -299,8 +299,8 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
         params['L_SHIPPINGOPTIONAMOUNT%d' % index] = _format_currency(charge)
 
     # Set shipping charge explicitly if it has been passed
-    if shipping_method:
-        max_charge = charge = shipping_method.basket_charge_incl_tax()
+    if shipping_method and shipping_method.is_tax_known:
+        max_charge = charge = shipping_method.charge_incl_tax  # basket_charge_incl_tax() removed in 0.7
         params['PAYMENTREQUEST_0_SHIPPINGAMT'] = _format_currency(charge)
         params['PAYMENTREQUEST_0_AMT'] += charge
 

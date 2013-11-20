@@ -77,11 +77,11 @@ class RedirectView(CheckoutSessionMixin, RedirectView):
 
         user = self.request.user
         if self.as_payment_method:
-            shipping_addr = self.get_shipping_address()
+            shipping_addr = self.get_shipping_address(basket)
             if not shipping_addr:
                 raise MissingShippingAddressException()
 
-            shipping_method = self.get_shipping_method()
+            shipping_method = self.get_shipping_method(basket)
             if not shipping_method:
                 raise MissingShippingMethodException()
 
@@ -245,7 +245,7 @@ class SuccessResponseView(PaymentDetailsView):
                 'notes': self.txn.value('NOTETEXT'),
             }
 
-        ctx['shipping_method'] = self.get_shipping_method()
+#         ctx['shipping_method'] = self.get_shipping_method() # This is already done in PaymentDetailsView.build_submission
         ctx['order_total_incl_tax'] = D(self.txn.value('PAYMENTREQUEST_0_AMT'))
 
         return ctx
@@ -306,7 +306,7 @@ class SuccessResponseView(PaymentDetailsView):
             country=Country.objects.get(iso_3166_1_a2=self.txn.value('PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'))
         )
 
-    def get_shipping_method(self, basket=None):
+    def get_shipping_method(self, basket=None, shipping_address=None, **kwargs):
         """
         Return the shipping method used
         """

@@ -16,3 +16,5 @@ htmlcov
 # Sensitive data
 TODO
 integration.py
+.project
+.pydevproject

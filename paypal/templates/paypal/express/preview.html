@@ -2,7 +2,8 @@
 {% load currency_filters %}
 {% load i18n %}
 {% load url from future %}
-{% load thumbnail %}
+{% load smart_load %}
+{% load thumbnail from sorl.thumbnail as sorl_thumbnail %}
 
 {# Null out the actions as they can't be used here #}
 {% block shipping_address_actions %}{% endblock %}
@@ -43,13 +44,13 @@
             <h4 class="span2 align-right">{% trans "Price" %}</h4>
         </div>
     </div>
-    {% for line in frozen_basket.all_lines %}
+    {% for line in basket.all_lines %}
     <div class="basket-items">
         <div class="row-fluid">
             <div class="span9">
                 <div class="image_container">
                     {% with image=line.product.primary_image %}
-                    {% thumbnail image.original "200x200" upscale=False as thumb %}
+                    {% sorl_thumbnail image.original "200x200" upscale=False as thumb %}
                     <a href="{{ form.instance.product.get_absolute_url }}"><img class="thumbnail" src="{{ thumb.url }}" alt="{{ product.get_title }}"></a>
                     {% endthumbnail %}
                     {% endwith %}
@@ -70,7 +71,7 @@
     <div class="row-fluid">
         <div class="span6">&nbsp;</div>
         <div class="span6">
-            {% include 'basket/partials/basket_totals.html' with basket=frozen_basket %}
+            {% include 'basket/partials/basket_totals.html' with basket=basket %}
         </div>
     </div>
 
@@ -78,7 +79,7 @@
 
 {% block place_order %}
     <h3>{% trans "Please review the information above, then click 'Place Order'" %}</h3>
-    <form method="post" action="{% url 'paypal-place-order' frozen_basket.id %}">
+    <form method="post" action="{% url 'paypal-place-order' basket.id %}">
         {% csrf_token %}
         <input type="hidden" name="payer_id" value="{{ payer_id }}" />
         <input type="hidden" name="token" value="{{ token }}" />

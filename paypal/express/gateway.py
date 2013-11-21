@@ -6,6 +6,8 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import truncatewords
+from django.utils.html import strip_tags
+import HTMLParser
 
 from paypal.express import models
 from paypal import gateway
@@ -28,7 +30,7 @@ SALE, AUTHORIZATION, ORDER = 'Sale', 'Authorization', 'Order'
 API_VERSION = getattr(settings, 'PAYPAL_API_VERSION', '88.0')
 
 logger = logging.getLogger('paypal.express')
-
+html_parser = HTMLParser.HTMLParser()
 
 def _format_currency(amt):
     return amt.quantize(D('0.01'))
@@ -189,7 +191,9 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
                                                          product.upc else '')
         desc = ''
         if product.description:
-            desc = truncatewords(product.description, 12)
+            desc = html_parser.unescape(product.description)
+            desc = strip_tags(desc)
+            desc = truncatewords(desc, 12)
         params['L_PAYMENTREQUEST_0_DESC%d' % index] = desc
         # Note, we don't include discounts here - they are handled as separate
         # lines - see below
@@ -299,8 +303,8 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
         params['L_SHIPPINGOPTIONAMOUNT%d' % index] = _format_currency(charge)
 
     # Set shipping charge explicitly if it has been passed
-    if shipping_method and shipping_method.is_tax_known:
-        max_charge = charge = shipping_method.charge_incl_tax  # basket_charge_incl_tax() removed in 0.7
+    if shipping_method:
+        max_charge = charge = shipping_method.charge_incl_tax
         params['PAYMENTREQUEST_0_SHIPPINGAMT'] = _format_currency(charge)
         params['PAYMENTREQUEST_0_AMT'] += charge
 

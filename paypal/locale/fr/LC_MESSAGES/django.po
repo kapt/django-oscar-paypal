@@ -1,0 +1,407 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-21 16:53+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: base.py:13
+msgid "Response time in milliseconds"
+msgstr ""
+
+#: express/gateway.py:213
+#, python-format
+msgid "Special Offer: %s"
+msgstr ""
+
+#: express/gateway.py:230
+#, python-format
+msgid "Shipping Offer: %s"
+msgstr ""
+
+#: express/views.py:49
+msgid "An error occurred communicating with PayPal"
+msgstr ""
+
+#: express/views.py:56
+msgid "Your basket is empty"
+msgstr ""
+
+#: express/views.py:59
+msgid "A shipping address must be specified"
+msgstr ""
+
+#: express/views.py:62
+msgid "A shipping method must be specified"
+msgstr ""
+
+#: express/views.py:128
+msgid "PayPal transaction cancelled"
+msgstr ""
+
+#: express/views.py:147
+msgid "Unable to determine PayPal transaction details"
+msgstr ""
+
+#: express/views.py:153 express/views.py:183 express/views.py:189
+msgid "A problem occurred communicating with PayPal - please try again later"
+msgstr ""
+
+#: express/views.py:163 express/views.py:202
+msgid "No basket was found that corresponds to your PayPal transaction"
+msgstr ""
+
+#: payflow/codes.py:10
+msgid "Sale"
+msgstr ""
+
+#: payflow/codes.py:11
+msgid "Authorize"
+msgstr ""
+
+#: payflow/codes.py:12 templates/paypal/payflow/transaction_detail.html:58
+msgid "Credit"
+msgstr ""
+
+#: payflow/codes.py:13
+msgid "Delayed capture"
+msgstr ""
+
+#: payflow/codes.py:14 templates/paypal/payflow/transaction_detail.html:57
+msgid "Void"
+msgstr ""
+
+#: payflow/codes.py:15
+msgid "Duplicate transaction"
+msgstr ""
+
+#: payflow/models.py:14
+msgid "Comment 1"
+msgstr ""
+
+#: payflow/models.py:16 payflow/models.py:52
+#: templates/paypal/payflow/transaction_detail.html:34
+#: templates/paypal/payflow/transaction_list.html:35
+msgid "Transaction type"
+msgstr ""
+
+#: payflow/models.py:17
+msgid "Bankcard or PayPal"
+msgstr ""
+
+#: payflow/models.py:23
+msgid "Payflow transaction ID"
+msgstr ""
+
+#: payflow/models.py:25
+msgid "Payment transaction ID"
+msgstr ""
+
+#: payflow/models.py:28 templates/paypal/payflow/transaction_detail.html:41
+#: templates/paypal/payflow/transaction_list.html:40
+msgid "Response message"
+msgstr ""
+
+#: payflow/models.py:29 templates/paypal/payflow/transaction_detail.html:37
+#: templates/paypal/payflow/transaction_detail.html:39
+msgid "Auth code"
+msgstr ""
+
+#: payflow/models.py:33
+msgid "CVV2 check"
+msgstr ""
+
+#: payflow/models.py:35
+msgid "House number check"
+msgstr ""
+
+#: payflow/models.py:37
+msgid "Zip/Postcode check"
+msgstr ""
+
+#: payflow/models.py:56 templates/paypal/payflow/transaction_detail.html:35
+msgid "Tender"
+msgstr ""
+
+#: payflow/views.py:32
+msgid "Dashboard actions not permitted"
+msgstr ""
+
+#: payflow/views.py:50
+#, python-format
+msgid "Unable to settle transaction - %s"
+msgstr ""
+
+#: payflow/views.py:55
+#, python-format
+msgid "Transaction %s settled"
+msgstr ""
+
+#: payflow/views.py:63
+#, python-format
+msgid "Unable to credit transaction - %s"
+msgstr ""
+
+#: payflow/views.py:67
+#, python-format
+msgid "Transaction %s credited"
+msgstr ""
+
+#: payflow/views.py:75
+#, python-format
+msgid "Unable to void transaction - %s"
+msgstr ""
+
+#: payflow/views.py:79
+#, python-format
+msgid "Transaction %s voided"
+msgstr ""
+
+#: templates/paypal/express/preview.html:14
+msgid "Payment"
+msgstr ""
+
+#: templates/paypal/express/preview.html:17
+msgid "PayPal"
+msgstr ""
+
+#: templates/paypal/express/preview.html:19
+#, python-format
+msgid ""
+"\n"
+"                    %(amt)s will be deducted from your PayPal account, "
+"registered \n"
+"                    to email: %(email)s.\n"
+"                "
+msgstr ""
+"\n"
+"                    Un montant de %(amt)s va être prélevé sur votre compte PayPal, "
+"enregistré \n"
+"                    avec l'email: %(email)s.\n"
+"                "
+
+#: templates/paypal/express/preview.html:37
+msgid "Order contents"
+msgstr ""
+
+#: templates/paypal/express/preview.html:41
+msgid "Items in basket"
+msgstr "Articles du panier"
+
+#: templates/paypal/express/preview.html:42
+msgid "Quantity"
+msgstr ""
+
+#: templates/paypal/express/preview.html:43
+msgid "Price"
+msgstr ""
+
+#: templates/paypal/express/preview.html:80
+msgid "Please review the information above, then click 'Place Order'"
+msgstr "Veuillez vérifier les informations ci-dessus, puis cliquez sur Passer commande"
+
+#: templates/paypal/express/dashboard/transaction_detail.html:7
+msgid "PayPal Express transaction"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:13
+#: templates/paypal/express/dashboard/transaction_list.html:13
+#: templates/paypal/payflow/transaction_detail.html:13
+#: templates/paypal/payflow/transaction_list.html:13
+msgid "Dashboard"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:17
+#: templates/paypal/express/dashboard/transaction_list.html:17
+msgid "PayPal Express"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:21
+#, python-format
+msgid ""
+"\n"
+"                Transaction %(id)s\n"
+"            "
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:29
+#, python-format
+msgid ""
+"\n"
+"        Transaction %(id)s\n"
+"    "
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:37
+#: templates/paypal/express/dashboard/transaction_list.html:34
+msgid "Correlation ID"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:38
+#: templates/paypal/express/dashboard/transaction_list.html:35
+msgid "Method"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:39
+#: templates/paypal/express/dashboard/transaction_list.html:37
+#: templates/paypal/payflow/transaction_detail.html:36
+#: templates/paypal/payflow/transaction_list.html:36
+msgid "Amount"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:40
+msgid "Currency"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:41
+#: templates/paypal/express/dashboard/transaction_list.html:36
+#: templates/paypal/payflow/transaction_detail.html:40
+msgid "Result"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:42
+#: templates/paypal/express/dashboard/transaction_list.html:38
+msgid "Token"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:43
+#: templates/paypal/express/dashboard/transaction_list.html:39
+msgid "Error code"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:44
+#: templates/paypal/express/dashboard/transaction_list.html:40
+msgid "Error message"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:45
+msgid "Request params"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:46
+msgid "Response params"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:47
+#: templates/paypal/payflow/transaction_detail.html:46
+msgid "Raw request"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:48
+#: templates/paypal/payflow/transaction_detail.html:47
+msgid "Raw response"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_detail.html:49
+#: templates/paypal/express/dashboard/transaction_list.html:41
+#: templates/paypal/payflow/transaction_detail.html:48
+#: templates/paypal/payflow/transaction_list.html:42
+msgid "Date"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_list.html:7
+#: templates/paypal/express/dashboard/transaction_list.html:25
+msgid "PayPal Express transactions"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_list.html:20
+#: templates/paypal/payflow/transaction_list.html:20
+msgid "Transactions"
+msgstr ""
+
+#: templates/paypal/express/dashboard/transaction_list.html:61
+#: templates/paypal/payflow/transaction_list.html:67
+msgid "No transactions have been made yet."
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:7
+msgid "PayPal Payflow transaction"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:17
+msgid "PayPal Payflow"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:20
+#: templates/paypal/payflow/transaction_detail.html:27
+msgid "Transaction"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:32
+msgid "Payflow transaction ID (PNREF)"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:33
+#: templates/paypal/payflow/transaction_list.html:34
+msgid "Order number"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:38
+msgid "Payment ID (PPREF)"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:42
+msgid "Is approved?"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:43
+msgid "Security code match?"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:44
+msgid "House number match?"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:45
+msgid "Postcode match?"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:53
+msgid "Actions"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_detail.html:56
+msgid "Capture"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_list.html:7
+#: templates/paypal/payflow/transaction_list.html:25
+msgid "PayPal Payflow transactions"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_list.html:17
+msgid "PayPal Payflow Pro"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_list.html:37
+msgid "PN reference"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_list.html:38
+msgid "PP reference"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_list.html:39
+msgid "Response code"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_list.html:41
+msgid "Response time (ms)"
+msgstr ""
+
+#: templates/paypal/payflow/transaction_list.html:59
+msgid "View"
+msgstr ""

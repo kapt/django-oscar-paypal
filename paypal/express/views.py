@@ -121,7 +121,10 @@ class CancelResponseView(RedirectView):
     def get(self, request, *args, **kwargs):
         basket = get_object_or_404(Basket, id=kwargs['basket_id'],
                                    status=Basket.FROZEN)
+
         basket.thaw()
+        if settings.OSCAR_BASKET_COOKIE_OPEN in request.cookies_to_delete:
+            request.cookies_to_delete.remove(settings.OSCAR_BASKET_COOKIE_OPEN)
         return super(CancelResponseView, self).get(request, *args, **kwargs)
 
     def get_redirect_url(self, **kwargs):
@@ -315,9 +318,7 @@ class SuccessResponseView(PaymentDetailsView):
         """
         Return the shipping method used
         """
-#         charge = D(self.txn.value('PAYMENTREQUEST_0_SHIPPINGAMT'))
-#         method = FixedPrice(charge)
-#         basket = basket if basket else self.request.basket
+
         # Instantiate a new FixedPrice shipping method instance
         charge_incl_tax = D(self.txn.value('PAYMENTREQUEST_0_SHIPPINGAMT'))
         # Assume no tax for now
@@ -327,7 +328,7 @@ class SuccessResponseView(PaymentDetailsView):
         name = self.txn.value('SHIPPINGOPTIONNAME')
         if not name:
             # Look to see if there is a method in the session
-            session_method = self.checkout_session.shipping_method(basket)
+            session_method = super(SuccessResponseView, self).get_shipping_method(basket, shipping_address)
             if session_method:
                 method.name = session_method.name
         else:

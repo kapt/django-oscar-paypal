@@ -30,6 +30,8 @@ Basket = get_model('basket', 'Basket')
 Repository = get_class('shipping.repository', 'Repository')
 Selector = get_class('partner.strategy', 'Selector')
 
+website_scheme = getattr(settings, 'PAYPAL_WEBSITE_SCHEME', "https")
+
 class RedirectView(CheckoutSessionMixin, RedirectView):
     """
     Initiate the transaction with Paypal and redirect the user
@@ -96,10 +98,11 @@ class RedirectView(CheckoutSessionMixin, RedirectView):
             # Determine the localserver's hostname to use when
             # in testing mode
             params['host'] = self.request.META['HTTP_HOST']
+
             if getattr(settings, 'PAYPAL_SANDBOX_MODE', False):
                 params['scheme'] = 'http'
             else:
-                params['scheme'] = 'https'
+                params['scheme'] = website_scheme
 
         if user.is_authenticated():
             params['user'] = user

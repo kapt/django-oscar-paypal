@@ -18,3 +18,4 @@ TODO
 integration.py
 .project
 .pydevproject
+paypal/locale/fr/LC_MESSAGES/django.mo

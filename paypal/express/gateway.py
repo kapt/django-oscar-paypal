@@ -201,6 +201,10 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
             line.unit_price_incl_tax)
         params['L_PAYMENTREQUEST_0_QTY%d' % index] = line.quantity
 
+        # Don't use this or your TVA amount will be invalid on paypal !
+#         params['L_PAYMENTREQUEST_0_TAXAMT%d' % index] = _format_currency(
+#             line.unit_tax)
+
     # If the order has discounts associated with it, the way PayPal suggests
     # using the API is to add a separate item for the discount with the value
     # as a negative price.  See "Integrating Order Details into the Express
@@ -250,7 +254,9 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
     # level.
     params['PAYMENTREQUEST_0_ITEMAMT'] = _format_currency(
         basket.total_incl_tax)
-    params['PAYMENTREQUEST_0_TAXAMT'] = _format_currency(D('0.00'))
+
+    # Don't use this or your TVA amount will be invalid on paypal !
+#     params['PAYMENTREQUEST_0_TAXAMT'] = _format_currency(basket.total_tax)
 
     # Instant update callback information
     if update_url:
@@ -320,6 +326,7 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
     # Ensure that the total is formatted correctly.
     params['PAYMENTREQUEST_0_AMT'] = _format_currency(
         params['PAYMENTREQUEST_0_AMT'])
+
 
     txn = _fetch_response(SET_EXPRESS_CHECKOUT, params)
 

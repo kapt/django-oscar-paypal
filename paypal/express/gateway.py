@@ -9,10 +9,15 @@ from django.template.defaultfilters import truncatewords
 from django.utils.html import strip_tags
 import HTMLParser
 
+from oscar.core.loading import get_class
+
 from paypal.express import models
 from paypal import gateway
 from paypal import exceptions
 
+
+OrderFeesCalculator = get_class(
+    'checkout.calculators', 'OrderFeesCalculator')
 
 # PayPal methods
 SET_EXPRESS_CHECKOUT = 'SetExpressCheckout'
@@ -321,12 +326,18 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
 
     # Handling set to zero for now - I've never worked on a site that needed a
     # handling charge.
-    params['PAYMENTREQUEST_0_HANDLINGAMT'] = _format_currency(D('0.00'))
+    order_total_without_fees = params['PAYMENTREQUEST_0_AMT']
+    order_fees = OrderFeesCalculator().calculate(order_total_without_fees)
+
+    params['PAYMENTREQUEST_0_HANDLINGAMT'] = _format_currency(order_fees)
+    params['PAYMENTREQUEST_0_AMT'] += params['PAYMENTREQUEST_0_HANDLINGAMT']
+
+    params['PAYMENTREQUEST_0_MAXAMT'] += params['PAYMENTREQUEST_0_HANDLINGAMT']
+    params['MAXAMT'] += params['PAYMENTREQUEST_0_HANDLINGAMT']
 
     # Ensure that the total is formatted correctly.
     params['PAYMENTREQUEST_0_AMT'] = _format_currency(
         params['PAYMENTREQUEST_0_AMT'])
-
 
     txn = _fetch_response(SET_EXPRESS_CHECKOUT, params)
 

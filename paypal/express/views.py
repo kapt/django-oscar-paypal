@@ -103,6 +103,8 @@ class RedirectView(CheckoutSessionMixin, RedirectView):
                 params['scheme'] = 'http'
             else:
                 params['scheme'] = website_scheme
+        else:
+            params['scheme'] = website_scheme
 
         if user.is_authenticated():
             params['user'] = user

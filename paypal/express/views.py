@@ -80,6 +80,7 @@ class RedirectView(CheckoutSessionMixin, RedirectView):
         user = self.request.user
         if self.as_payment_method:
             shipping_addr = self.get_shipping_address(basket)
+
             if not shipping_addr:
                 raise MissingShippingAddressException()
 

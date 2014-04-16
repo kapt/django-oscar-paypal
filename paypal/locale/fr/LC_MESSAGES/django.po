@@ -50,7 +50,7 @@ msgstr ""
 
 #: express/views.py:128
 msgid "PayPal transaction cancelled"
-msgstr ""
+msgstr "Transaction PayPal annulée"
 
 #: express/views.py:147
 msgid "Unable to determine PayPal transaction details"

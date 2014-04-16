@@ -174,7 +174,6 @@ class SuccessResponseView(PaymentDetailsView):
             return HttpResponseRedirect(reverse('basket:summary'))
         else:
             kwargs['basket'].strategy = Selector().strategy(self.request)
-
         return super(SuccessResponseView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -215,6 +214,7 @@ class SuccessResponseView(PaymentDetailsView):
              # Assign strategy to basket instance
              basket.strategy = Selector().strategy(self.request)
         submission = self.build_submission(basket=basket)
+
         return self.submit(**submission)
 
     def fetch_paypal_data(self, payer_id, token):
@@ -309,7 +309,7 @@ class SuccessResponseView(PaymentDetailsView):
             first_name = parts[0]
             last_name = " ".join(parts[1:])
 
-        return ShippingAddress.objects.create(
+        shipping_address = ShippingAddress.objects.create(
             first_name=first_name,
             last_name=last_name,
             line1=self.txn.value('PAYMENTREQUEST_0_SHIPTOSTREET'),
@@ -319,6 +319,13 @@ class SuccessResponseView(PaymentDetailsView):
             postcode=self.txn.value('PAYMENTREQUEST_0_SHIPTOZIP'),
             country=Country.objects.get(iso_3166_1_a2=self.txn.value('PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'))
         )
+        phone_number = self.txn.value('SHIPTOPHONENUM')
+        if phone_number and len(phone_number) > 0:
+            shipping_address.phone_number = phone_number
+        notes = self.txn.value('PAYMENTREQUEST_0_NOTETEXT')
+        if notes and len(notes) > 0:
+            shipping_address.notes = notes
+        return shipping_address
 
     def get_shipping_method(self, basket=None, shipping_address=None, **kwargs):
         """

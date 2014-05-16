@@ -17,6 +17,7 @@ from oscar.apps.payment.exceptions import PaymentError, UnableToTakePayment
 from oscar.apps.payment.models import SourceType, Source
 from oscar.core.loading import get_class
 from oscar.apps.shipping.methods import FixedPrice
+from oscar.apps.shipping.methods import NoShippingRequired
 
 from paypal.express.facade import get_paypal_url, fetch_transaction_details, confirm_transaction
 from paypal.express.exceptions import (
@@ -85,8 +86,8 @@ class RedirectView(CheckoutSessionMixin, RedirectView):
                 raise MissingShippingAddressException()
 
             shipping_method = self.get_shipping_method(basket)
-            if not shipping_method:
-                raise MissingShippingMethodException()
+#             if not shipping_method:
+#                 raise MissingShippingMethodException()
 
             params['shipping_address'] = shipping_addr
             params['shipping_method'] = shipping_method
@@ -336,8 +337,13 @@ class SuccessResponseView(PaymentDetailsView):
         charge_incl_tax = D(self.txn.value('PAYMENTREQUEST_0_SHIPPINGAMT'))
         # Assume no tax for now
         charge_excl_tax = charge_incl_tax
-        method = FixedPrice(charge_excl_tax, charge_incl_tax)
+
+        if basket and not basket.is_shipping_required():
+            method = NoShippingRequired()
+        else:
+            method = FixedPrice(charge_excl_tax, charge_incl_tax)
         method.set_basket(basket)
+
         name = self.txn.value('SHIPPINGOPTIONNAME')
         if not name:
             # Look to see if there is a method in the session

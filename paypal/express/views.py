@@ -24,6 +24,7 @@ from paypal.express.exceptions import (
     EmptyBasketException, MissingShippingAddressException,
     MissingShippingMethodException)
 from paypal.exceptions import PayPalError
+from paypal.defaults import PAYPAL_SOURCE_TYPE_NAME
 
 ShippingAddress = get_model('order', 'ShippingAddress')
 Country = get_model('address', 'Country')
@@ -285,7 +286,7 @@ class SuccessResponseView(PaymentDetailsView):
             raise UnableToTakePayment()
 
         # Record payment source and event
-        source_type, is_created = SourceType.objects.get_or_create(name='PayPal')
+        source_type, is_created = SourceType.objects.get_or_create(name=PAYPAL_SOURCE_TYPE_NAME)
         source = Source(source_type=source_type,
                         currency=txn.currency,
                         amount_allocated=txn.amount,

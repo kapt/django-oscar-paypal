@@ -92,6 +92,10 @@ class RedirectView(CheckoutSessionMixin, RedirectView):
             params['shipping_address'] = shipping_addr
             params['shipping_method'] = shipping_method
             params['shipping_methods'] = []
+
+            payment_method = self.checkout_session.payment_method()
+            params['payment_method'] = payment_method
+
         else:
             shipping_methods = Repository().get_shipping_methods(user, basket)
             params['shipping_methods'] = shipping_methods

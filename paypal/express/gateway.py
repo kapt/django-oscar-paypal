@@ -113,7 +113,7 @@ def _fetch_response(method, extra_params):
 
 def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_url=None,
             action=SALE, user=None, user_address=None, shipping_method=None,
-            shipping_address=None, no_shipping=False, paypal_params=None):
+            shipping_address=None, no_shipping=False, payment_method=None, paypal_params=None):
     """
     Register the transaction with PayPal to get a token which we use in the
     redirect URL.  This is the 'SetExpressCheckout' from their documentation.
@@ -327,7 +327,7 @@ def set_txn(basket, shipping_methods, currency, return_url, cancel_url, update_u
     # Handling set to zero for now - I've never worked on a site that needed a
     # handling charge.
     order_total_without_fees = params['PAYMENTREQUEST_0_AMT']
-    order_fees = OrderFeesCalculator().calculate(order_total_without_fees)
+    order_fees = OrderFeesCalculator().calculate(order_total_without_fees, payment_method)
 
     params['PAYMENTREQUEST_0_HANDLINGAMT'] = _format_currency(order_fees)
     params['PAYMENTREQUEST_0_AMT'] += params['PAYMENTREQUEST_0_HANDLINGAMT']
